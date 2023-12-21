@@ -741,6 +741,18 @@ class BattleTooltips {
 			if (move.flags.punch && ability === 'ironfist') {
 				text += `<p class="movetag">&#x2713; Fist <small>(boosted by Iron Fist)</small></p>`;
 			}
+      if (move.flags.kick && ability === 'steeltoe') {
+        text += `<p class="movetag">&#x2713; Kick <small>(boosted by Steel Toe)</small></p>`;
+      }
+      if (move.flags.bullet&&ability==='artillery'){
+				text+="<p class=\"movetag\">&#x2713; Bullet-like <small>(boosted by Artillery)</small></p>";
+			}
+      if (move.flags.wind&&ability==='strongwinds'){
+				text+="<p class=\"movetag\">&#x2713; Wind <small>(boosted by Strong Winds)</small></p>";
+			}
+      if (ability==='illuminate'){
+				text+="<p class=\"movetag\">&#x2713; Illuminate <small>(accuracy boosted x1.3)</small></p>";
+			}
 			if (move.flags.pulse && ability === 'megalauncher') {
 				text += `<p class="movetag">&#x2713; Pulse <small>(boosted by Mega Launcher)</small></p>`;
 			}
@@ -1095,6 +1107,9 @@ class BattleTooltips {
 		if (ability === 'purepower' || ability === 'hugepower') {
 			stats.atk *= 2;
 		}
+    if (ability === 'wisepower') {
+			stats.spa *= 2;
+		}
 		if (ability === 'hustle' || (ability === 'gorillatactics' && !clientPokemon?.volatiles['dynamax'])) {
 			stats.atk = Math.floor(stats.atk * 1.5);
 		}
@@ -1214,6 +1229,9 @@ class BattleTooltips {
 		}
 		if (item === 'assaultvest') {
 			stats.spd = Math.floor(stats.spd * 1.5);
+		}
+    if (item === 'strikevest') {
+			stats.def = Math.floor(stats.def * 1.5);
 		}
 		if (item === 'deepseascale' && species === 'Clamperl') {
 			stats.spd *= 2;
@@ -1607,6 +1625,7 @@ class BattleTooltips {
 		} else if (value.tryAbility('Compound Eyes')) {
 			accuracyModifiers.push(5325);
 			value.abilityModify(1.3, "Compound Eyes");
+      value.abilityModify(1.3, "Illuminate");
 		}
 
 		if (value.tryItem('Wide Lens')) {
@@ -1865,6 +1884,9 @@ class BattleTooltips {
 		if (move.flags['punch']) {
 			value.abilityModify(1.2, 'Iron Fist');
 		}
+    if (move.flags['kick']){
+			value.abilityModify(1.2,'Steel Toe');
+		}
 		if (move.flags['pulse']) {
 			value.abilityModify(1.5, "Mega Launcher");
 		}
@@ -1891,6 +1913,12 @@ class BattleTooltips {
 		}
 		if (move.flags['sound']) {
 			value.abilityModify(1.3, "Punk Rock");
+		}
+    if (moveType === 'Poison' || moveType === 'Cosmic') {
+			value.abilityModify(1.2, "Radioactive");
+		}
+		if (move.flags['sound']) {
+			value.abilityModify(1.3, "Orchestral");
 		}
 		if (move.flags['slicing']) {
 			value.abilityModify(1.5, "Sharpness");
